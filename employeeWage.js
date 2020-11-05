@@ -16,7 +16,7 @@ console.log("\n");
 
 console.log("\n");
 
-//UC2 refactored to UC3 refactored to UC4
+//UC2 refactored to UC3 refactored to UC4 refactored to UC5
 const IS_PART_TIME = 1;
 const IS_FULL_TIME = 2;
 const PART_TIME_HOURS = 4;
@@ -38,11 +38,17 @@ function getWorkingHours(employeeCheckIndex) {
 }
 
 let totalEmployeeWage = 0;
+let totalNumberOfDays = 0;
+let totalWorkingHours = 0;
 
-for (let i = 0; i < 20; i++) {
+while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
+
     let employeeCheck = Math.floor(Math.random() * 10) % 3;
     let employeeHours = getWorkingHours(employeeCheck);
+    totalWorkingHours += employeeHours;
     totalEmployeeWage += employeeHours * WAGE_PER_HOUR;
+    totalNumberOfDays += 1;
+
 }
 
 console.log("Total employee wage is : " + totalEmployeeWage);
