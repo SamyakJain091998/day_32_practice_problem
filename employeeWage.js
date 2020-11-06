@@ -44,6 +44,7 @@ function calculateTotalWage(workingHours) {
 let totalNumberOfDays = 0;
 let totalWorkingHours = 0;
 let dailyWageArray = new Array(); //Daily wage array
+let dailyWageMap = new Map();
 
 while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
     let employeeCheck = Math.floor(Math.random() * 10) % 3;
@@ -51,6 +52,7 @@ while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
     dailyWageArray.push(calculateTotalWage(employeeHours));
     totalWorkingHours += employeeHours;
     totalNumberOfDays += 1;
+    dailyWageMap.set(totalNumberOfDays, calculateTotalWage(employeeHours));
 }
 
 let localTotalWage = 0;
@@ -102,3 +104,9 @@ function numberOfDaysEmployeeWorked(numOfDays, dailyWage){
 }
 
 console.log("Calculating number of days employee worked using a function ----> " + dailyWageArray.reduce(numberOfDaysEmployeeWorked, 0));
+console.log("\n");
+console.log("=========PRINTING DAILY WAGE MAP==========");
+
+for(let [key, value] of dailyWageMap){
+    console.log(key + "=" + value);
+}
