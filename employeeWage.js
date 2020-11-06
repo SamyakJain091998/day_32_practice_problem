@@ -58,3 +58,47 @@ for(let index in dailyWageArray){
     localTotalWage+=dailyWageArray[index];
 }
 console.log("Total employee wage is using array is : " + localTotalWage);
+
+function totalWagesReduceFunction(totalWage, dailyWage){
+    return totalWage + dailyWage;
+}
+
+console.log("Total wage using reduce function : " + dailyWageArray.reduce(totalWagesReduceFunction, 0));
+
+let dailyCounter = 0;
+function mapDayWithWage(dailyWage){
+    dailyCounter++;
+    return dailyCounter + "=" + dailyWage;
+}
+
+let mapDayWithWageArray = dailyWageArray.map(mapDayWithWage);
+console.log(mapDayWithWageArray);
+
+function fullTimeWage(dailyWage) {
+    return dailyWage.includes("160");
+}
+
+let fullyDayWageArray = mapDayWithWageArray.filter(fullTimeWage);
+console.log(fullyDayWageArray);
+
+console.log("First time occurence of wage 160 ----> day " + mapDayWithWageArray.find(fullTimeWage));
+
+function isAllFullTimeWage(dailyWage){
+    return dailyWage.includes("160");
+}
+
+console.log("Is every full time working day contains wage 160 ? " + fullyDayWageArray.every(isAllFullTimeWage));
+
+function isSomePartTimeWage(dailyWage){
+    return dailyWage.includes("80");
+}
+
+console.log("Is there any day which was a part time working day ? " + mapDayWithWageArray.some(isSomePartTimeWage));
+
+
+function numberOfDaysEmployeeWorked(numOfDays, dailyWage){
+    if(dailyWage > 0) return numOfDays+1;
+    return numOfDays;
+}
+
+console.log("Calculating number of days employee worked using a function ----> " + dailyWageArray.reduce(numberOfDaysEmployeeWorked, 0));
