@@ -37,18 +37,24 @@ function getWorkingHours(employeeCheckIndex) {
     }
 }
 
-let totalEmployeeWage = 0;
-let totalNumberOfDays = 0;
-let totalWorkingHours = 0;
-
-while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
-
-    let employeeCheck = Math.floor(Math.random() * 10) % 3;
-    let employeeHours = getWorkingHours(employeeCheck);
-    totalWorkingHours += employeeHours;
-    totalEmployeeWage += employeeHours * WAGE_PER_HOUR;
-    totalNumberOfDays += 1;
-
+function calculateTotalWage(workingHours) {
+    return workingHours * WAGE_PER_HOUR;
 }
 
-console.log("Total employee wage is : " + totalEmployeeWage);
+let totalNumberOfDays = 0;
+let totalWorkingHours = 0;
+let dailyWageArray = new Array(); //Daily wage array
+
+while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
+    let employeeCheck = Math.floor(Math.random() * 10) % 3;
+    let employeeHours = getWorkingHours(employeeCheck);
+    dailyWageArray.push(calculateTotalWage(employeeHours));
+    totalWorkingHours += employeeHours;
+    totalNumberOfDays += 1;
+}
+
+let localTotalWage = 0;
+for(let index in dailyWageArray){
+    localTotalWage+=dailyWageArray[index];
+}
+console.log("Total employee wage is using array is : " + localTotalWage);
