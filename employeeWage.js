@@ -43,110 +43,128 @@ function calculateTotalWage(workingHours) {
 
 let totalNumberOfDays = 0;
 let totalWorkingHours = 0;
-let dailyWageArray = new Array(); //Daily wage array
-let dailyWageMap = new Map();
-let dailyHoursMap = new Map();
+// let dailyWageArray = new Array(); //Daily wage array
+// let dailyWageMap = new Map();
+// let dailyHoursMap = new Map();
+let empDailyHrsAndWageArray = new Array();
 
 while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
     let employeeCheck = Math.floor(Math.random() * 10) % 3;
     let employeeHours = getWorkingHours(employeeCheck);
-    dailyWageArray.push(calculateTotalWage(employeeHours));
+    // dailyWageArray.push(calculateTotalWage(employeeHours));
     totalWorkingHours += employeeHours;
     totalNumberOfDays += 1;
-    dailyWageMap.set(totalNumberOfDays, calculateTotalWage(employeeHours));
-    dailyHoursMap.set(totalNumberOfDays, employeeHours);
+    // dailyWageMap.set(totalNumberOfDays, calculateTotalWage(employeeHours));
+    // dailyHoursMap.set(totalNumberOfDays, employeeHours);
+    empDailyHrsAndWageArray.push(
+        {
+            dayNum: totalNumberOfDays,
+            dailyHours: employeeHours,
+            dailyWage: calculateTotalWage(employeeHours),
+            toString() {
+                return "\nDay : " + this.dayNum + " => Working hours is : " + + this.dailyHours +
+                    " => Wage earned is : " + this.dailyWage
+            },
+        }
+    );
 }
 
-let localTotalWage = 0;
-for(let index in dailyWageArray){
-    localTotalWage+=dailyWageArray[index];
-}
-console.log("Total employee wage is using array is : " + localTotalWage);
+// let localTotalWage = 0;
+// for (let index in dailyWageArray) {
+//     localTotalWage+=dailyWageArray[index];
+// }
+// console.log("Total employee wage is using array is : " + localTotalWage);
 
-function totalWagesReduceFunction(totalWage, dailyWage){
-    return totalWage + dailyWage;
-}
+// function totalWagesReduceFunction(totalWage, dailyWage){
+//     return totalWage + dailyWage;
+// }
 
-console.log("Total wage using reduce function : " + dailyWageArray.reduce(totalWagesReduceFunction, 0));
+// console.log("Total wage using reduce function : " + dailyWageArray.reduce(totalWagesReduceFunction, 0));
 
-let dailyCounter = 0;
+// let dailyCounter = 0;
 
-function mapDayWithWage(dailyWage){
-    dailyCounter++;
-    return dailyCounter + "=" + dailyWage;
-}
+// function mapDayWithWage(dailyWage){
+//     dailyCounter++;
+//     return dailyCounter + "=" + dailyWage;
+// }
 
-let mapDayWithWageArray = dailyWageArray.map(mapDayWithWage);
-console.log(mapDayWithWageArray);
+// let mapDayWithWageArray = dailyWageArray.map(mapDayWithWage);
+// console.log(mapDayWithWageArray);
 
-function fullTimeWage(dailyWage) {
-    return dailyWage.includes("160");
-}
+// function fullTimeWage(dailyWage) {
+//     return dailyWage.includes("160");
+// }
 
-let fullyDayWageArray = mapDayWithWageArray.filter(fullTimeWage);
-console.log(fullyDayWageArray);
+// let fullyDayWageArray = mapDayWithWageArray.filter(fullTimeWage);
+// console.log(fullyDayWageArray);
 
-console.log("First time occurence of wage 160 ----> day " + mapDayWithWageArray.find(fullTimeWage));
+// console.log("First time occurence of wage 160 ----> day " + mapDayWithWageArray.find(fullTimeWage));
 
-function isAllFullTimeWage(dailyWage){
-    return dailyWage.includes("160");
-}
+// function isAllFullTimeWage(dailyWage){
+//     return dailyWage.includes("160");
+// }
 
-console.log("Is every full time working day contains wage 160 ? " + fullyDayWageArray.every(isAllFullTimeWage));
+// console.log("Is every full time working day contains wage 160 ? " + fullyDayWageArray.every(isAllFullTimeWage));
 
-function isSomePartTimeWage(dailyWage){
-    return dailyWage.includes("80");
-}
+// function isSomePartTimeWage(dailyWage){
+//     return dailyWage.includes("80");
+// }
 
-console.log("Is there any day which was a part time working day ? " + mapDayWithWageArray.some(isSomePartTimeWage));
-
-
-function numberOfDaysEmployeeWorked(numOfDays, dailyWage){
-    if(dailyWage > 0) return numOfDays+1;
-    return numOfDays;
-}
-
-console.log("Calculating number of days employee worked using a function ----> " + dailyWageArray.reduce(numberOfDaysEmployeeWorked, 0));
-console.log("\n");
-console.log("=========PRINTING DAILY WAGE MAP==========");
-
-for(let [key, value] of dailyWageMap){
-    console.log(key + "=" + value);
-}
-console.log("-----daily hours map-----");
-for(let [key, value] of dailyHoursMap){
-    console.log(key + "=" + value);
-}
+// console.log("Is there any day which was a part time working day ? " + mapDayWithWageArray.some(isSomePartTimeWage));
 
 
-/*
-function filterDailyWageArray(localDailyWage){
-    return (localDailyWage > 0);
-}
-*/
-console.log("---------> " + dailyWageArray.filter(dailyWage => dailyWage > 0)
-    .reduce(totalWagesReduceFunction, 0));
+// function numberOfDaysEmployeeWorked(numOfDays, dailyWage){
+//     if(dailyWage > 0) return numOfDays+1;
+//     return numOfDays;
+// }
 
-let nonWorkingDays = new Array();
-let halfWorkingDays = new Array();
-let fullWorkingDays = new Array();
+// console.log("Calculating number of days employee worked using a function ----> " + dailyWageArray.reduce(numberOfDaysEmployeeWorked, 0));
+// console.log("\n");
+// console.log("=========PRINTING DAILY WAGE MAP==========");
 
-function calculatorfunction(value, key, map) {
+// for(let [key, value] of dailyWageMap){
+//     console.log(key + "=" + value);
+// }
+// console.log("-----daily hours map-----");
+// for(let [key, value] of dailyHoursMap){
+//     console.log(key + "=" + value);
+// }
 
-    if (value == 8) {
-        fullWorkingDays.push(key);
-    }
-    else if (value == 4) {
-        halfWorkingDays.push(key);
-    }
-    else {
-        nonWorkingDays.push(key);
-    }
 
-}
+// /*
+// function filterDailyWageArray(localDailyWage){
+//     return (localDailyWage > 0);
+// }
+// */
+// console.log("---------> " + dailyWageArray.filter(dailyWage => dailyWage > 0)
+//     .reduce(totalWagesReduceFunction, 0));
 
-dailyHoursMap.forEach(calculatorfunction);
+// let nonWorkingDays = new Array();
+// let halfWorkingDays = new Array();
+// let fullWorkingDays = new Array();
 
-console.log("non working days array -----> " + nonWorkingDays);
-console.log("half working days array -----> " + halfWorkingDays);
-console.log("full working days array -----> " + fullWorkingDays);
+// function calculatorfunction(value, key, map) {
+
+//     if (value == 8) {
+//         fullWorkingDays.push(key);
+//     }
+//     else if (value == 4) {
+//         halfWorkingDays.push(key);
+//     }
+//     else {
+//         nonWorkingDays.push(key);
+//     }
+
+// }
+
+// dailyHoursMap.forEach(calculatorfunction);
+
+// console.log("non working days array -----> " + nonWorkingDays);
+// console.log("half working days array -----> " + halfWorkingDays);
+// console.log("full working days array -----> " + fullWorkingDays);
+
+// console.log("\n");
+
+console.log("--------------------------------------------------------");
+console.log("Showing daily wage and daily hours using a single map : " + empDailyHrsAndWageArray);
+console.log("--------------------------------------------------------");
