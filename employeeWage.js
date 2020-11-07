@@ -168,3 +168,19 @@ while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
 console.log("--------------------------------------------------------");
 console.log("Showing daily wage and daily hours using a single map : " + empDailyHrsAndWageArray);
 console.log("--------------------------------------------------------");
+
+console.log("\n");
+let totalWages = empDailyHrsAndWageArray.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours > 0)
+    .reduce((totalWage, dailyHrsAndWage) => totalWage += dailyHrsAndWage.dailyWage, 0);
+
+let totalHours = empDailyHrsAndWageArray.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours > 0)
+    .reduce((totalWage, dailyHrsAndWage) => totalWage += dailyHrsAndWage.dailyHours, 0);
+console.log("--------------------------------------------------------");
+console.log("Total wage : " + totalWages + " Total hours : " + totalHours);
+console.log("--------------------------------------------------------");
+let fullDayWorkingArray = empDailyHrsAndWageArray.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 8)
+    .map(dummyObj => dummyObj.toString());
+
+console.log("Printing full day working array : " + fullDayWorkingArray);
+console.log("Printing full day working array size ----> " + fullDayWorkingArray.length);
+
