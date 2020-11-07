@@ -58,6 +58,20 @@ class EmployeePayrollData{
         }
     }
 
+    get startDate() {
+        return this._startDate;
+    }
+
+    set startDate(startDate) {
+        if (this._startDate === undefined) {
+            this._startDate = new Date();
+        } else {
+            if ((startDate.getDay() <= new Date().getDay()) && (startDate.getMonth() <= new Date().getMonth()) 
+            && (startDate.getYear() <= new Date().getYear())) this._startDate = startDate;
+            else throw 'startDate is incorrect';
+        }
+    }
+
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const empDate = this.startDate === undefined ? "undefined" :
@@ -70,7 +84,7 @@ class EmployeePayrollData{
 let employeePayrollData = new EmployeePayrollData(1, "Mark", 30000);
 console.log(employeePayrollData.toString());
 
-employeePayrollData = new EmployeePayrollData(2, "Jeff", 40000, "M", new Date());
+employeePayrollData = new EmployeePayrollData(2, "Jeff", 40000, "M", new Date(1998, 03, 09));
 console.log(employeePayrollData.toString());
 
 try {
@@ -96,6 +110,13 @@ try {
 
 try {
     employeePayrollData.gender = "f";
+    console.log(employeePayrollData.toString());
+} catch (e) {
+    console.error(e);
+}
+
+try {
+    employeePayrollData.startDate = new Date(2019, 03, 04);
     console.log(employeePayrollData.toString());
 } catch (e) {
     console.error(e);
