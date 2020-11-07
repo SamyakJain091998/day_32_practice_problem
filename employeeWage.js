@@ -45,6 +45,7 @@ let totalNumberOfDays = 0;
 let totalWorkingHours = 0;
 let dailyWageArray = new Array(); //Daily wage array
 let dailyWageMap = new Map();
+let dailyHoursMap = new Map();
 
 while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
     let employeeCheck = Math.floor(Math.random() * 10) % 3;
@@ -53,6 +54,7 @@ while (totalWorkingHours < 160 && totalNumberOfDays <= 20) {
     totalWorkingHours += employeeHours;
     totalNumberOfDays += 1;
     dailyWageMap.set(totalNumberOfDays, calculateTotalWage(employeeHours));
+    dailyHoursMap.set(totalNumberOfDays, employeeHours);
 }
 
 let localTotalWage = 0;
@@ -68,6 +70,7 @@ function totalWagesReduceFunction(totalWage, dailyWage){
 console.log("Total wage using reduce function : " + dailyWageArray.reduce(totalWagesReduceFunction, 0));
 
 let dailyCounter = 0;
+
 function mapDayWithWage(dailyWage){
     dailyCounter++;
     return dailyCounter + "=" + dailyWage;
@@ -110,3 +113,40 @@ console.log("=========PRINTING DAILY WAGE MAP==========");
 for(let [key, value] of dailyWageMap){
     console.log(key + "=" + value);
 }
+console.log("-----daily hours map-----");
+for(let [key, value] of dailyHoursMap){
+    console.log(key + "=" + value);
+}
+
+
+/*
+function filterDailyWageArray(localDailyWage){
+    return (localDailyWage > 0);
+}
+*/
+console.log("---------> " + dailyWageArray.filter(dailyWage => dailyWage > 0)
+    .reduce(totalWagesReduceFunction, 0));
+
+let nonWorkingDays = new Array();
+let halfWorkingDays = new Array();
+let fullWorkingDays = new Array();
+
+function calculatorfunction(value, key, map) {
+
+    if (value == 8) {
+        fullWorkingDays.push(key);
+    }
+    else if (value == 4) {
+        halfWorkingDays.push(key);
+    }
+    else {
+        nonWorkingDays.push(key);
+    }
+
+}
+
+dailyHoursMap.forEach(calculatorfunction);
+
+console.log("non working days array -----> " + nonWorkingDays);
+console.log("half working days array -----> " + halfWorkingDays);
+console.log("full working days array -----> " + fullWorkingDays);
